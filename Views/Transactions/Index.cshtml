@@ -1,0 +1,32 @@
+@model IEnumerable<BankOfBadDecisions.Models.BankTransaction>
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h2>Transactions</h2>
+  <div class="btn-group">
+    <form method="post" action="/Transactions/Overspend"><button class="btn btn-warning">💸 Overspend</button></form>
+    <form method="post" class="ms-2" action="/Transactions/PayLateFee"><button class="btn btn-danger">⏰ Pay Late Fee</button></form>
+    <form method="post" class="ms-2" action="/Transactions/TakeLoan"><button class="btn btn-secondary">🤑 Take Loan</button></form>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th class="text-end">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach (var t in Model)
+  {
+    <tr>
+      <td>@t.Date.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+      <td>@t.Category</td>
+      <td>@t.Description</td>
+      <td class="text-end">@(t.Amount < 0 ? "-" : "+")₹@Math.Abs(t.Amount)</td>
+    </tr>
+  }
+  </tbody>
+</table>

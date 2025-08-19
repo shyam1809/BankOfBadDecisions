@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/*.db
+**/*.db-shm
+**/*.db-wal
+*.user
+*.suo
+*.vscode
+.git/
+.gitignore
+README.md
+Jenkinsfile

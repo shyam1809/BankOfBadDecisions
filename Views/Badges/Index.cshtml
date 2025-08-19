@@ -1,0 +1,21 @@
+@model IEnumerable<BankOfBadDecisions.Models.Badge>
+
+<h2>Your Badges</h2>
+@if (!Model.Any())
+{
+  <div class="alert alert-info">No badges yet. Go make some questionable choices! 😅</div>
+}
+<div class="row g-3">
+  @foreach (var b in Model)
+  {
+    <div class="col-md-4">
+      <div class="card badge-card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">@b.Title</h5>
+          <p class="card-text">@b.Description</p>
+          <span class="text-muted">Earned @b.EarnedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>
