@@ -23,7 +23,7 @@ pipeline {
     }
     stage('Docker Build') {
       steps {
-        bat 'docker build -t %DOCKERHUB_REPO%:%IMAGE_TAG% .'
+        bat 'docker build -t %shyam2004/bankofbaddecisions%:%latest% .'
       }
     }
     stage('Docker Push') {
