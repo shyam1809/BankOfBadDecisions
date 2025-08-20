@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_REPO = "your-dockerhub-username/bankofbaddecisions"
+    DOCKERHUB_REPO = "your-dockerhub-shyam2004/bankofbaddecisions"
     IMAGE_TAG = "latest"
   }
 
