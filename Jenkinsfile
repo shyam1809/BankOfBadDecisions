@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    DOCKERHUB_REPO = "your-dockerhub-shyam2004/bankofbaddecisions"
+    DOCKERHUB_REPO = "shyam2004/bankofbaddecisions"
     IMAGE_TAG = "latest"
   }
 
@@ -12,26 +12,25 @@ pipeline {
     }
     stage('Build (.NET in container)') {
       steps {
-        bat 'docker run --rm -v "$PWD":/src -w /src mcr.microsoft.com/dotnet/sdk:8.0 dotnet restore'
-        bat 'docker run --rm -v "$PWD":/src -w /src mcr.microsoft.com/dotnet/sdk:8.0 dotnet build -c Release'
+        bat 'docker run --rm -v "%cd%":/src -w /src mcr.microsoft.com/dotnet/sdk:8.0 dotnet restore'
+        bat 'docker run --rm -v "%cd%":/src -w /src mcr.microsoft.com/dotnet/sdk:8.0 dotnet build -c Release'
       }
     }
     stage('Test') {
       steps {
-        // Placeholder - add unit tests when available
         bat 'echo "No tests defined"'
       }
     }
     stage('Docker Build') {
       steps {
-        bat 'docker build -t $DOCKERHUB_REPO:$IMAGE_TAG .'
+        bat 'docker build -t %DOCKERHUB_REPO%:%IMAGE_TAG% .'
       }
     }
     stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-          bat 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-          bat 'docker push $DOCKERHUB_REPO:$IMAGE_TAG'
+          bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
+          bat 'docker push %DOCKERHUB_REPO%:%IMAGE_TAG%'
         }
       }
     }
