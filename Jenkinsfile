@@ -30,7 +30,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
           bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
-          bat 'docker push %DOCKERHUB_REPO%:%IMAGE_TAG%'
+          bat 'docker push %shyam2004/bankofbaddecisions%:%latest%'
         }
       }
     }
